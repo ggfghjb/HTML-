@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>专属生日祝福 | 给[刘芷序]</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#7C3AED', // 紫粉色主色调
+            secondary: '#EC4899', // 玫瑰红辅助色
+            accent: '#F59E0B', // 金色点缀色
+            dark: '#1E293B',
+            light: '#F8FAFC'
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            sans: ['Inter', 'sans-serif']
+          },
+          animation: {
+            'float-slow': 'float 8s ease-in-out infinite',
+            'pulse-soft': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'bounce-gentle': 'bounce 2s infinite'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 4px 8px rgba(0,0,0,0.12);
+      }
+      .text-glow {
+        text-shadow: 0 0 15px rgba(124, 58, 237, 0.6);
+      }
+      .card-3d {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
+      .backface-hidden {
+        backface-visibility: hidden;
+      }
+      .glass {
+        backdrop-filter: blur(12px);
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-dark to-slate-800 text-light min-h-screen overflow-x-hidden font-sans">
+  <!-- 顶部音乐控制 -->
+  <div id="musicControl" class="fixed top-4 right-4 z-50 glass rounded-full p-3 shadow-lg cursor-pointer transition-all duration-300 hover:scale-110">
+    <i id="musicIcon" class="fa fa-music text-accent text-2xl"></i>
+  </div>
+  <audio id="birthdaySong" loop>
+    <source src="https://assets.mixkit.co/music/preview/mixkit-birthday-party-839.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- 粒子背景容器 -->
+  <div id="particles-js" class="fixed inset-0 z-0"></div>
+
+  <!-- 主容器 -->
+  <main class="relative z-10 min-h-screen flex flex-col items-center justify-center p-4">
+    <!-- 3D卡片容器 -->
+    <div id="cardContainer" class="w-full max-w-3xl mx-auto mt-12 card-3d">
+      <!-- 卡片正面 -->
+      <div id="cardFront" class="relative rounded-3xl overflow-hidden shadow-2xl transform transition-all duration-1000 hover:shadow-[0_0_30px_rgba(124,58,237,0.4)]">
+        <!-- 渐变背景 -->
+        <div class="h-[500px] bg-gradient-to-br from-primary/90 to-secondary/80 relative overflow-hidden">
+          <!-- 装饰元素 -->
+          <div class="absolute -top-20 -right-20 w-64 h-64 bg-accent/20 rounded-full filter blur-3xl"></div>
+          <div class="absolute -bottom-32 -left-16 w-80 h-80 bg-primary/20 rounded-full filter blur-3xl"></div>
+          
+          <!-- 漂浮装饰 -->
+          <div class="absolute top-10 left-10 w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white shadow-lg animate-float-slow" style="animation-delay: 0s">
+            <i class="fa fa-star text-xl"></i>
+          </div>
+          <div class="absolute top-1/3 right-1/4 w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg animate-float-slow" style="animation-delay: 1s">
+            <i class="fa fa-heart text-2xl"></i>
+          </div>
+          <div class="absolute bottom-20 left-1/3 w-14 h-14 bg-primary rounded-full flex items-center justify-center text-white shadow-lg animate-float-slow" style="animation-delay: 2s">
+            <i class="fa fa-birthday-cake text-xl"></i>
+          </div>
+          
+          <!-- 主标题 -->
+          <div class="relative z-10 h-full flex flex-col items-center justify-center px-8 text-center">
+            <h1 class="text-[clamp(2.5rem,8vw,4.5rem)] font-display font-bold text-white text-glow mb-4 transform transition-all duration-700 hover:scale-105">
+              生日快乐
+            </h1>
+            <p class="text-[clamp(1rem,3vw,1.25rem)] text-white/90 max-w-2xl mx-auto mb-8">
+              点击卡片，开启专属祝福
+            </p>
+            <div class="w-16 h-1 bg-accent rounded-full animate-bounce-gentle"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片背面（祝福内容） -->
+      <div id="cardBack" class="absolute inset-0 bg-light text-dark rounded-3xl p-6 md:p-8 shadow-2xl transform -rotate-y-180 backface-hidden transition-all duration-1000">
+        <!-- 头部 -->
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <h2 class="text-[clamp(1.5rem,4vw,2.5rem)] font-display font-bold text-primary mb-2">
+              亲爱的[刘芷序]
+            </h2>
+            <p class="text-slate-500">这是为你准备的专属祝福</p>
+          </div>
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+            <i class="fa fa-heart text-xl"></i>
+          </div>
+        </div>
+        
+        <!-- 祝福内容 -->
+        <div class="space-y-6 mb-8">
+          <p class="text-lg md:text-xl leading-relaxed text-slate-700">
+            在这个特别的日子里，想把所有美好的祝福都送给你。愿新的一岁里，你的每个梦想都能闪闪发光，每个愿望都能如愿以偿。
+          </p>
+          <p class="text-lg md:text-xl leading-relaxed text-slate-700">
+            感谢你一直以来的陪伴，你的笑容就像阳光一样温暖。希望今年你能收获更多快乐，遇见更多美好，被世界温柔以待。
+          </p>
+          <p class="text-lg md:text-xl leading-relaxed text-slate-700">
+            生日快乐！愿这份祝福能为你带来一整天的好心情，未来的日子里，让我们继续一起创造更多精彩回忆～
+          </p>
+        </div>
+        
+        <!-- 照片墙 -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+          <div class="rounded-xl overflow-hidden shadow-md group">
+            <img src="https://img2.baidu.com/it/u=3946513537,3753906297&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1200" alt="回忆照片" class="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="rounded-xl overflow-hidden shadow-md group">
+            <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage109.360doc.com%2FDownloadImg%2F2024%2F05%2F1018%2F283462633_4_20240510061136195&refer=http%3A%2F%2Fimage109.360doc.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1753019108&t=4e44d71fe5718b8f1c21fd215aa8f56a" alt="回忆照片" class="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="rounded-xl overflow-hidden shadow-md group">
+            <img src="https://q4.itc.cn/images01/20240627/d30dbf39840a4c0bbeb277a6d773db2f.jpeg" alt="回忆照片" class="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+        </div>
+        
+        <!-- 互动礼物按钮 -->
+        <div class="text-center">
+          <button id="openGift" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center justify-center mx-auto">
+            <i class="fa fa-gift mr-2"></i> 打开专属礼物
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 礼物弹窗（默认隐藏） -->
+    <div id="giftModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+      <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm" id="modalOverlay"></div>
+      <div class="relative bg-white rounded-3xl p-6 max-w-2xl w-full mx-4 shadow-2xl transform transition-all duration-500 scale-95 opacity-0" id="modalContent">
+        <button id="closeGift" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 z-10">
+          <i class="fa fa-times text-2xl"></i>
+        </button>
+        <div class="text-center mb-6">
+          <h3 class="text-2xl font-display font-bold text-primary mb-2">特别的礼物送给特别的你</h3>
+          <p class="text-slate-500">点击播放按钮，查看专属祝福</p>
+        </div>
+        <div class="aspect-video bg-slate-100 rounded-xl overflow-hidden mb-6 relative">
+          <img src="https://picsum.photos/seed/video/800/450" alt="祝福视频封面" class="w-full h-full object-cover">
+          <button id="playVideo" class="absolute inset-0 flex items-center justify-center bg-primary/30 hover:bg-primary/50 rounded-xl transition-colors duration-300">
+            <div class="w-20 h-20 bg-primary text-white rounded-full flex items-center justify-center shadow-lg">
+              <i class="fa fa-play text-3xl"></i>
+            </div>
+          </button>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-5 text-center">
+          <p class="text-lg text-slate-700 mb-4">
+            愿这份礼物能让你感受到满满的心意，
+            <br>新的一岁，继续做闪闪发光的自己！
+          </p>
+          <div class="flex justify-center space-x-3 mt-4">
+            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+              <i class="fa fa-star"></i>
+            </div>
+            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+              <i class="fa fa-heart"></i>
+            </div>
+            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+              <i class="fa fa-smile-o"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 签名区 -->
+    <div class="mt-12 text-center text-slate-400 text-sm">
+      <p>由[黄熙文皓]精心制作 ❤️ <span id="currentYear">2025</span></p>
+    </div>
+  </main>
+
+  <script>
+    // 粒子背景初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: "#7C3AED" },
+          shape: { type: "circle" },
+          opacity: { value: 0.5, random: true },
+          size: { value: 3, random: true },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#7C3AED",
+            opacity: 0.2,
+            width: 1
+          },
+          move: {
+            enable: true,
+            speed: 1,
+            direction: "none",
+            random: true,
+            straight: false,
+            out_mode: "out",
+            bounce: false
+          }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: true, mode: "grab" },
+            onclick: { enable: true, mode: "push" },
+            resize: true
+          },
+          modes: {
+            grab: { distance: 140, line_linked: { opacity: 0.3 } },
+            push: { particles_nb: 3 }
+          }
+        },
+        retina_detect: true
+      });
+      
+      // 替换占位文本
+      document.querySelector('h2').textContent = '亲爱的[刘芷序]';
+      document.querySelector('.text-sm').textContent = '由[你的名字]精心制作 ❤️ <span id="currentYear">2025</span>';
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      
+      // 卡片翻转效果
+      const cardContainer = document.getElementById('cardContainer');
+      const cardFront = document.getElementById('cardFront');
+      const cardBack = document.getElementById('cardBack');
+      
+      cardFront.addEventListener('click', () => {
+        cardContainer.style.transform = 'rotateY(180deg)';
+        setTimeout(() => {
+          cardFront.classList.add('backface-hidden');
+          cardBack.classList.remove('-rotate-y-180');
+        }, 500);
+      });
+      
+      // 音乐控制
+      const musicControl = document.getElementById('musicControl');
+      const musicIcon = document.getElementById('musicIcon');
+      const birthdaySong = document.getElementById('birthdaySong');
+      let isMusicPlaying = false;
+      
+      musicControl.addEventListener('click', () => {
+        if (isMusicPlaying) {
+          birthdaySong.pause();
+          musicIcon.classList.remove('fa-pause');
+          musicIcon.classList.add('fa-music');
+        } else {
+          birthdaySong.play();
+          musicIcon.classList.remove('fa-music');
+          musicIcon.classList.add('fa-pause');
+        }
+        isMusicPlaying = !isMusicPlaying;
+      });
+      
+      // 礼物弹窗控制
+      const openGiftBtn = document.getElementById('openGift');
+      const giftModal = document.getElementById('giftModal');
+      const modalContent = document.getElementById('modalContent');
+      const closeGiftBtn = document.getElementById('closeGift');
+      const modalOverlay = document.getElementById('modalOverlay');
+      
+      openGiftBtn.addEventListener('click', () => {
+        giftModal.classList.remove('hidden');
+        setTimeout(() => {
+          modalContent.classList.remove('scale-95', 'opacity-0');
+          modalContent.classList.add('scale-100', 'opacity-100');
+          // 播放动画时继续音乐
+          if (!isMusicPlaying) {
+            birthdaySong.play();
+            isMusicPlaying = true;
+            musicIcon.classList.remove('fa-music');
+            musicIcon.classList.add('fa-pause');
+          }
+        }, 50);
+      });
+      
+      function closeModal() {
+        modalContent.classList.remove('scale-100', 'opacity-100');
+        modalContent.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+          giftModal.classList.add('hidden');
+        }, 300);
+      }
+      
+      closeGiftBtn.addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', closeModal);
+      
+      // 视频播放模拟
+      const playVideoBtn = document.getElementById('playVideo');
+      playVideoBtn.addEventListener('click', () => {
+        playVideoBtn.innerHTML = '<i class="fa fa-pause text-3xl"></i>';
+        playVideoBtn.classList.remove('bg-primary/30', 'hover:bg-primary/50');
+        playVideoBtn.classList.add('bg-secondary/30', 'hover:bg-secondary/50');
+        // 这里可以替换为实际视频链接
+        alert('模拟视频播放：正在播放专属生日祝福视频...');
+      });
+    });
+  </script>
+</body>
+</html>
